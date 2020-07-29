@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,6 +25,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.system.svenf.model.Empresa;
 import com.system.svenf.repository.EmpresaRepository;
+import com.system.svenf.repository.filter.EmpresaFilter;
 import com.system.svenf.service.EmpresaService;
 
 @RestController
@@ -35,9 +38,10 @@ public class EmpresaResource {
 	@Autowired
 	private EmpresaService empresaService;
 
+	
 	@GetMapping
-	public List<Empresa> listar() {
-		return empresaRepository.findAll();
+	public Page<Empresa> pesquisar(EmpresaFilter empresaFilter, Pageable pageable) {
+		return empresaRepository.filtrar(empresaFilter, pageable);
 	}
 
 	@GetMapping("/{id}")
