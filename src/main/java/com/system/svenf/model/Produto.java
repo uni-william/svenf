@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,8 +21,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "empresas")
-public class Empresa implements Serializable {
+@Table(name = "produtos")
+public class Produto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,38 +32,43 @@ public class Empresa implements Serializable {
 	private Long id;
 
 	@NotNull
-	@Column(length = 20, nullable = false)
-	private String cnpj;
-
+	@Column(length = 100, nullable = false)
+	private String descricao;
+	
 	@NotNull
-	@Column(length = 120, nullable = false)
-	private String razaoSocial;
+	@Column(length = 30)
+	private String ean;
+	
 	@NotNull
-	@Column(length = 120, nullable = false)
-	private String nomeFantasia;
+	@Column(length = 30)
+	private String ncm;	
+	
 	@NotNull
-	@Column(length = 10, nullable = false)
-	private String crt;
+	@Column(length = 30)
+	private String codigoCest;	
+	
 	@NotNull
-	@Column(length = 30, nullable = false)
-	private String inscricaoEstadual;
+	@Column(length = 10)
+	private String cfop;	
+	
+	@NotNull
+	@Column(length = 4)
+	private String siglaUnidMedida;	
 	
 	@NotNull
 	@Column(nullable = false, precision = 10, scale = 2)
-	private  BigDecimal percentualPis;	
-
+	private  BigDecimal valorCompra;
+	
 	@NotNull
 	@Column(nullable = false, precision = 10, scale = 2)
-	private  BigDecimal percentualCofins;
+	private  BigDecimal valorVenda;
 	
-	private Integer numeroNota;
+	@NotNull
+	@Column(nullable = false, precision = 10, scale = 2)
+	private  BigDecimal percentualIcms;
 	
-	private Integer serie;
-	
-	@Column(length = 15)
-	private String telefone;
-	
-	@Embedded
-	private Endereco endereco = new Endereco();
+	@NotNull
+	@Column(length = 4)
+	private String tipoIcms;	
 
 }
